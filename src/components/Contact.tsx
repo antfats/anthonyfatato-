@@ -30,15 +30,15 @@ const Contact = () => {
 
     try {
       await emailjs.send(
-        'YOUR_SERVICE_ID', // You'll need to replace this
-        'YOUR_TEMPLATE_ID', // You'll need to replace this
+        'service_hqc3bt3',
+        'template_zgihizh',
         {
           from_name: formData.name,
           from_email: formData.email,
           message: formData.message,
-          to_name: 'Your Name', // Replace with your name
+          to_name: 'Anthony',
         },
-        'YOUR_PUBLIC_KEY' // You'll need to replace this
+        'yZXMHZdHds9TXUK_9'
       );
 
       toast({
