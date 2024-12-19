@@ -15,16 +15,46 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    section?.scrollIntoView({ behavior: 'smooth' });
+    setIsMenuOpen(false);
+  };
+
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'glass py-4' : 'py-6'}`}>
       <div className="container mx-auto flex justify-between items-center">
-        <a href="#" className="text-2xl font-bold">Portfolio</a>
+        <a 
+          href="#" 
+          className="text-2xl font-bold"
+          onClick={(e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+        >
+          Portfolio
+        </a>
         
         {/* Desktop Menu */}
         <div className="hidden md:flex gap-8">
-          <a href="#about" className="hover:text-primary transition-colors">About</a>
-          <a href="#projects" className="hover:text-primary transition-colors">Projects</a>
-          <a href="#contact" className="hover:text-primary transition-colors">Contact</a>
+          <button 
+            onClick={() => scrollToSection('about')} 
+            className="hover:text-primary transition-colors"
+          >
+            About
+          </button>
+          <button 
+            onClick={() => scrollToSection('projects')} 
+            className="hover:text-primary transition-colors"
+          >
+            Projects
+          </button>
+          <button 
+            onClick={() => scrollToSection('contact')} 
+            className="hover:text-primary transition-colors"
+          >
+            Contact
+          </button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -41,9 +71,24 @@ const Navbar = () => {
         {isMenuOpen && (
           <div className="absolute top-full left-0 w-full glass py-4 md:hidden animate-fade-down">
             <div className="flex flex-col items-center gap-4">
-              <a href="#about" className="hover:text-primary transition-colors">About</a>
-              <a href="#projects" className="hover:text-primary transition-colors">Projects</a>
-              <a href="#contact" className="hover:text-primary transition-colors">Contact</a>
+              <button 
+                onClick={() => scrollToSection('about')} 
+                className="hover:text-primary transition-colors"
+              >
+                About
+              </button>
+              <button 
+                onClick={() => scrollToSection('projects')} 
+                className="hover:text-primary transition-colors"
+              >
+                Projects
+              </button>
+              <button 
+                onClick={() => scrollToSection('contact')} 
+                className="hover:text-primary transition-colors"
+              >
+                Contact
+              </button>
             </div>
           </div>
         )}

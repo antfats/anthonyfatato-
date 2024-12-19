@@ -3,6 +3,11 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 
 const Hero = () => {
+  const scrollToProjects = () => {
+    const projectsSection = document.getElementById('projects');
+    projectsSection?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
@@ -18,10 +23,13 @@ const Hero = () => {
             Building beautiful, interactive experiences for the web
           </p>
           <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto animate-fade-up">
-
-          As well as taking action in the Cybersecurity Landscape
+            As well as taking action in the Cybersecurity Landscape
           </p>  
-          <Button className="animate-fade-up" size="lg">
+          <Button 
+            className="animate-fade-up" 
+            size="lg"
+            onClick={scrollToProjects}
+          >
             View My Work <ArrowRight className="ml-2" />
           </Button>
         </div>
