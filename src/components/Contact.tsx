@@ -3,8 +3,62 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, MessageSquare, Send } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
+import emailjs from '@emailjs/browser';
+import { useState } from "react";
 
 const Contact = () => {
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      await emailjs.send(
+        'YOUR_SERVICE_ID', // You'll need to replace this
+        'YOUR_TEMPLATE_ID', // You'll need to replace this
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+          to_name: 'Your Name', // Replace with your name
+        },
+        'YOUR_PUBLIC_KEY' // You'll need to replace this
+      );
+
+      toast({
+        title: "Success!",
+        description: "Your message has been sent successfully.",
+      });
+
+      // Reset form
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section id="contact" className="section-padding">
       <div className="container mx-auto max-w-4xl">
@@ -24,12 +78,36 @@ const Contact = () => {
                 </div>
               </div>
               
-              <form className="space-y-4">
-                <Input placeholder="Your Name" />
-                <Input placeholder="Your Email" type="email" />
-                <Textarea placeholder="Your Message" className="min-h-[120px]" />
-                <Button className="w-full">
-                  Send Message
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <Input 
+                  placeholder="Your Name" 
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+                <Input 
+                  placeholder="Your Email" 
+                  type="email" 
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+                <Textarea 
+                  placeholder="Your Message" 
+                  className="min-h-[120px]"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                />
+                <Button 
+                  className="w-full" 
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
                   <Send className="ml-2 w-4 h-4" />
                 </Button>
               </form>
