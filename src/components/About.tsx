@@ -10,8 +10,8 @@ const About = () => {
     },
     {
       icon: <Palette className="w-6 h-6" />,
-      title: "Design",
-      description: "Creating beautiful and intuitive user interfaces",
+      title: "Security",
+      description: "Ensuring that your home or buisness is safe from attacker",
     },
     {
       icon: <Rocket className="w-6 h-6" />,
