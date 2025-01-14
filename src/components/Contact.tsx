@@ -72,9 +72,19 @@ const Contact = () => {
                   <Mail className="w-5 h-5" />
                   <span>anthonyp.fatato@gmail.com</span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <MessageSquare className="w-5 h-5" />
+                <div className="flex items-center gap-8">
+                  <MessageSquare className="w-6 h-6" />
                   <span>Let's discuss your project</span>
+
+                  <div className="md:w-1/2 flex justify-center">
+                    <div className="w-40 h-40 overflow-hidden border-2 border-blue-900 rounded-full">
+                      <img
+                        src="https://lh3.googleusercontent.com/a/ACg8ocJPG4Yo6TFtRDxu-4IKnxNVuMpDwd9nMFIpJH0qYunmd6phxkk=s288-c-no"
+                        alt="Profile"
+                        className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
                 </div>
               </div>
               
